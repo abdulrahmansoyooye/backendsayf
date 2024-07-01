@@ -1,6 +1,5 @@
 "use client";
 
-import AddNewArticle from "@/components/AddNewArticle";
 import FileUpload from "@/components/FileUpload";
 import { createArticle, getCategory } from "@/utils/actions/articleActions";
 import dynamic from "next/dynamic";
