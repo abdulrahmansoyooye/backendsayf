@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: #d67d3e;
+  --secondary-color: #470d21;
+  --text-color: #111111;
+  --alt-color: #f6f6f6;
+}
+body {
+  font-family: var(--font-rubik);
+}
+.nav {
+  background-color: var(--alt-color);
+  width: 100%;
+  color: var(--text-color);
+  font-family: var(--font-bree_serif);
+}
+.rubik {
+  font-family: var(--font-rubik);
+}
+h1,
+.serif {
+  font-family: var(--font-bree_serif);
+}
+
+.section {
+  @apply bg-white border p-[1rem] rounded-md;
+}
+.glassmorphism {
+  @apply rounded-xl bg-white/10 shadow-[inset_10px_100px_180px_0_rgb(199,199,199,0.2)] backdrop-blur-[1rem]  p-5;
+}
+.text-gradient {
+  @apply bg-gradient-to-r from-[#D67D3E] via-[#D67D3E] to-[#D67D3E]  bg-clip-text text-transparent;
+}
+.text {
+  @apply text-primary-color;
+}
+.black_btn {
+  @apply rounded-[0.4rem]  bg-[#D67D3E] p-[1rem_3rem] text-white transition-all duration-500  hover:bg-[#9C0F48]  cursor-pointer text-center text-sm  flex items-center justify-center shadow-[8px_5px_0_0_#f9e4d4];
+}
+.input {
+  @apply w-full rounded-md border border-gray-200 bg-white py-2.5 pl-5 pr-12 text-sm font-medium focus:border-primary-color focus:outline-none focus:ring-0;
+}
+.flex-between {
+  @apply flex justify-between items-center;
+}
