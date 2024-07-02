@@ -10,11 +10,12 @@ const Nav = () => {
         </h1>
       </Link>
       {/* Desktop */}
-      <div className="flex justify-end gap-[2rem] text-[0.9rem]">
+      <div className="flex justify-end gap-[2rem] text-[0.9rem] flex-wrap items-center">
         <Link href={`/articles`}>Articles</Link>
         <Link href={`/podcasts`}>Podcasts</Link>
         <Link href={`/courses`}>Courses</Link>
         <Link href={`/resources`}>Resources</Link>
+        <Link href={`/newsletter`}>NewsLetter</Link>
       </div>
     </div>
   );

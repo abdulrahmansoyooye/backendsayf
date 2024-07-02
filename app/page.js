@@ -36,6 +36,14 @@ export default function Home() {
             <div>Resources</div>
           </Link>{" "}
         </div>
+        <div className=" p-[1rem]  bg-white border rounded-md hover:scale-[1.2] transition-all duration-300">
+          <Link
+            href={`/newsletter/create-newsletter`}
+            className="font-[400] cursor-pointer"
+          >
+            <div>Newsletter</div>
+          </Link>{" "}
+        </div>
       </div>
     </main>
   );
