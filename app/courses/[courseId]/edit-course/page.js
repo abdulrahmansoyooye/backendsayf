@@ -27,8 +27,10 @@ const Edit = () => {
         setDescription(res.description);
         setTag(res.tag);
         setLink(res.link);
+        setImage(res.imageUrl);
+        setCategoryValue(res.category);
       } catch (error) {
-        setError("Something went wrong. Try Againcourses");
+        setMessage("Something went wrong. Try Again");
       }
     }
     fetchcourses();
@@ -38,8 +40,9 @@ const Edit = () => {
     setDescription("");
     setTag("");
     setLink("");
+    setImage("");
     try {
-      const res = await EditCourseWithId(title, description, tag, link,image);
+      const res = await EditCourseWithId(title, description, tag, link, image);
       if (res.status === 201) {
         router.push("/courses");
       } else {
@@ -75,7 +78,7 @@ const Edit = () => {
               className="input"
             />
           </div>
-         
+
           <div className="flex gap-[1rem] justify-between flex-col  pb-[1rem]">
             <label className="font-[500]">Tag </label>
             <input
@@ -84,6 +87,14 @@ const Edit = () => {
               type="text"
               onChange={(e) => setTag(e.target.value)}
               className="input"
+            />
+          </div>
+          <div className="flex gap-[1rem] justify-between flex-col  pb-[1rem]">
+            <label className="font-[500]">Image </label>
+            <img
+              src={image}
+              alt="alt-image"
+              className="h-[50px] object-contain border"
             />
           </div>
           <div className="flex gap-[1rem] justify-between flex-col  pb-[1rem]">

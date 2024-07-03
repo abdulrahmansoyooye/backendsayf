@@ -23,6 +23,7 @@ const Edit = () => {
   const { podcastId } = useParams();
   const router = useRouter();
   const EditPodcastWithId = EditPodcast.bind(null, podcastId);
+
   useEffect(() => {
     async function fetchpodcasts() {
       try {
@@ -30,6 +31,9 @@ const Edit = () => {
         setTitle(res.title);
         setDescription(res.description);
         setTag(res.tag);
+        setImage(res.imageUrl);
+        setAudio(res.audio);
+        setCategoryValue(res.category);
       } catch (error) {
         setError("Something went wrong. Try Again");
       }
@@ -41,7 +45,14 @@ const Edit = () => {
     setDescription("");
     setTag("");
     try {
-      const res = await EditPodcastWithId(title, description, image, tag,audio,categoryValue);
+      const res = await EditPodcastWithId(
+        title,
+        description,
+        image,
+        tag,
+        audio,
+        categoryValue
+      );
       if (res.status === 201) {
         router.push("/podcasts");
       } else {
@@ -90,6 +101,14 @@ const Edit = () => {
               type="text"
               onChange={(e) => setDescription(e.target.value)}
               className="input"
+            />
+          </div>
+          <div className="flex gap-[1rem] justify-between flex-col  pb-[1rem]">
+            <label className="font-[500]">Image </label>
+            <img
+              src={image}
+              alt="alt-image"
+              className="h-[50px] object-contain border"
             />
           </div>
           <div className="flex gap-[1rem] justify-between flex-col  pb-[1rem]">

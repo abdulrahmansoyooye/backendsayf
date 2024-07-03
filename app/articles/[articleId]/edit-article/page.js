@@ -60,6 +60,9 @@ const Edit = () => {
         setTitle(res.title);
         setContent(res.content);
         setTag(res.tag);
+        setImage(res.imageUrl);
+        setCategoryValue(res.category);
+        console.log(res);
       } catch (error) {
         setError("Something went wrong. Try Againarticles");
       }
@@ -132,6 +135,14 @@ const Edit = () => {
             />
           </div>
           <div className="flex gap-[1rem] justify-between flex-col  pb-[1rem]">
+            <div className="flex gap-[1rem] justify-between flex-col  pb-[1rem]">
+              <label className="font-[500]">Image </label>
+              <img
+                src={image}
+                alt="alt-image"
+                className="h-[50px] object-contain border"
+              />
+            </div>
             <label className="font-[500]">Edit Image </label>
             <FileUpload file={image} setFile={setImage} />
           </div>
