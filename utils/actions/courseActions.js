@@ -43,7 +43,7 @@ export const EditCourse = async (
       description,
       tag,
       link,
-      image,
+      imageUrl: image,
     });
 
     return { message: "Podcast has Edited", status: 201 };

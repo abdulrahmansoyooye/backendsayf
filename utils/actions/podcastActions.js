@@ -87,6 +87,12 @@ export const createPodcast = async (
   if (!categoryValue) {
     return { message: "Add a category to continue" };
   }
+  if (!image) {
+    return { message: "Add an Image to continue" };
+  }
+  if (!audio) {
+    return { message: "Add an Audio to continue" };
+  }
   try {
     await Podcasts.create({
       title,

@@ -28,7 +28,6 @@ const Edit = () => {
         setTag(res.tag);
         setLink(res.link);
         setImage(res.imageUrl);
-        setCategoryValue(res.category);
       } catch (error) {
         setMessage("Something went wrong. Try Again");
       }
@@ -40,7 +39,6 @@ const Edit = () => {
     setDescription("");
     setTag("");
     setLink("");
-    setImage("");
     try {
       const res = await EditCourseWithId(title, description, tag, link, image);
       if (res.status === 201) {

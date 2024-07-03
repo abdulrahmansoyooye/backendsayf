@@ -1,9 +1,7 @@
 "use client";
 import FileUpload from "@/components/FileUpload";
 
-import {
-  createPodcast,
-} from "@/utils/actions/podcastActions";
+import { createPodcast } from "@/utils/actions/podcastActions";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -94,6 +92,16 @@ const CreateNewPodcast = () => {
               required
             />
           </div>
+          {image && (
+            <div className="flex gap-[1rem] justify-between flex-col  pb-[1rem]">
+              <label className="font-[500]">Image </label>
+              <img
+                src={image}
+                alt="alt-image"
+                className="h-[50px] object-contain border"
+              />
+            </div>
+          )}
           <div className="flex gap-[1rem] justify-between flex-col  pb-[1rem]">
             <label className="font-[500]">Upload Image </label>
             <FileUpload file={image} setFile={setImage} />

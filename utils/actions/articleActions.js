@@ -81,6 +81,9 @@ export const createArticle = async (
   if (!category) {
     return { message: "Add a category to continue" };
   }
+  if (!imageUrl) {
+    return { message: "Add an Image to continue" };
+  }
   console.log(imageUrl);
   try {
     await sayfArticle.create({
