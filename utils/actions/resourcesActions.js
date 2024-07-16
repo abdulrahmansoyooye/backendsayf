@@ -26,7 +26,13 @@ export const getEachResources = async (id) => {
   }
 };
 
-export const EditResources = async (resourcesId, title, pdf, tag) => {
+export const EditResources = async (
+  resourcesId,
+  title,
+  pdf,
+  tag,
+  description
+) => {
   console.log("Editing this Resources");
   await connectToDb();
   try {
@@ -34,6 +40,7 @@ export const EditResources = async (resourcesId, title, pdf, tag) => {
       title,
       pdf,
       tag,
+      description,
     });
 
     return { message: "Resources was Edited", status: 201 };
@@ -54,7 +61,7 @@ export const DeleteResources = async (id) => {
   }
 };
 
-export const createResources = async (title, pdf, tag) => {
+export const createResources = async (title, pdf, tag, description) => {
   await connectToDb();
 
   try {
@@ -62,6 +69,7 @@ export const createResources = async (title, pdf, tag) => {
       title,
       pdf,
       tag,
+      description,
     });
     return { message: "Resources has been Created", status: 201 };
   } catch (error) {

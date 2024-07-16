@@ -2,9 +2,38 @@
 
 import FileUpload from "@/components/FileUpload";
 import { createCourse } from "@/utils/actions/courseActions";
+import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+const ReactQuill = dynamic(() => import("react-quill"), {
+  ssr: false,
+});
 
+import "react-quill/dist/quill.snow.css";
+const modules = {
+  toolbar: [
+    [{ header: "1" }, { header: "2" }],
+    ["bold", "italic", "underline", "strike"],
+    ["link", "image", "video"],
+    [{ list: "ordered" }, { list: "bullet" }],
+    ["clean"],
+  ],
+};
+const formats = [
+  "header",
+  "font",
+  "size",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "blockquote",
+  "list",
+  "bullet",
+  "link",
+  "image",
+  "video",
+];
 const CreateNewCourse = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -51,13 +80,12 @@ const CreateNewCourse = () => {
           </div>
           <div className="flex gap-[1rem] justify-between flex-col  pb-[1rem]">
             <label className="font-[500]">Description </label>
-            <input
+            <ReactQuill
               value={description}
-              name="description"
-              type="text"
-              onChange={(e) => setDescription(e.target.value)}
-              className="input"
+              onChange={setDescription}
               required
+              modules={modules}
+              formats={formats}
             />
           </div>
           <div className="flex gap-[1rem] justify-between flex-col  pb-[1rem]">

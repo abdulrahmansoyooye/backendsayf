@@ -42,7 +42,7 @@ const Edit = () => {
   const [categories, setCategories] = useState([
     "Productivity",
     "Self Development",
-    "Spirituality & Menatl Health",
+    "Spirituality & Mental Health",
     "Relationship",
     "Career",
   ]);

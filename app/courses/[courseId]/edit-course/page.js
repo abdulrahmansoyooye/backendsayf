@@ -6,7 +6,36 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { EditCourse, getEachCourse } from "@/utils/actions/courseActions";
 import FileUpload from "@/components/FileUpload";
+const ReactQuill = dynamic(() => import("react-quill"), {
+  ssr: false,
+});
 
+import "react-quill/dist/quill.snow.css";
+import dynamic from "next/dynamic";
+const modules = {
+  toolbar: [
+    [{ header: "1" }, { header: "2" }],
+    ["bold", "italic", "underline", "strike"],
+    ["link", "image", "video"],
+    [{ list: "ordered" }, { list: "bullet" }],
+    ["clean"],
+  ],
+};
+const formats = [
+  "header",
+  "font",
+  "size",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "blockquote",
+  "list",
+  "bullet",
+  "link",
+  "image",
+  "video",
+];
 const Edit = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -68,12 +97,12 @@ const Edit = () => {
           </div>
           <div className="flex gap-[1rem] justify-between flex-col  pb-[1rem]">
             <label className="font-[500]">Description </label>
-            <input
+            <ReactQuill
               value={description}
-              name="description"
-              type="text"
-              onChange={(e) => setDescription(e.target.value)}
-              className="input"
+              onChange={setDescription}
+              required
+              modules={modules}
+              formats={formats}
             />
           </div>
 

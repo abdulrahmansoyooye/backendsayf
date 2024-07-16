@@ -15,10 +15,10 @@ const Edit = () => {
   const [title, setTitle] = useState("");
   const [tag, setTag] = useState("");
   const [pdf, setPdf] = useState("");
+  const [description, setDescription] = useState("");
   const [message, setMessage] = useState("");
 
   const { resourcesId } = useParams();
-  console.log(resourcesId);
   const router = useRouter();
   const EditResourcesWithId = EditResources.bind(null, resourcesId);
   useEffect(() => {
@@ -37,8 +37,9 @@ const Edit = () => {
     setTitle("");
     setPdf("");
     setTag("");
+    setDescription("");
     try {
-      const res = await EditResourcesWithId(title, pdf, tag);
+      const res = await EditResourcesWithId(title, pdf, tag, description);
       if (res.status === 201) {
         router.push("/resources");
       } else {
@@ -76,6 +77,16 @@ const Edit = () => {
               name="tag"
               type="text"
               onChange={(e) => setTag(e.target.value)}
+              className="input"
+            />
+          </div>
+          <div className="flex gap-[1rem] justify-between flex-col  pb-[1rem]">
+            <label className="font-[500]">Description </label>
+            <input
+              value={description}
+              name="tag"
+              type="text"
+              onChange={(e) => setDescription(e.target.value)}
               className="input"
             />
           </div>

@@ -39,8 +39,8 @@ const FileUpload = ({ file, setFile, audio }) => {
     : useDropzone({
         onDrop,
         accept: {
-          "image/": [],
-          "*pdf/*": [],
+          "image/*": [],
+          "pdf/*": [],
         },
       });
   return (

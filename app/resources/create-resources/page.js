@@ -9,6 +9,7 @@ import React, { useState } from "react";
 const CreateNewPodcast = () => {
   const [title, setTitle] = useState("");
   const [tag, setTag] = useState("");
+  const [description, setDescription] = useState("");
   const [pdf, setPdf] = useState(null);
   const [message, setMessage] = useState("");
 
@@ -16,9 +17,11 @@ const CreateNewPodcast = () => {
 
   const handleSubmit = async () => {
     setTitle("");
+    setPdf("");
     setTag("");
+    setDescription("");
     try {
-      const res = await createResources(title, pdf, tag);
+      const res = await createResources(title, pdf, tag, description);
       if (res.status === 201) {
         router.push("/resources");
       } else {
@@ -60,6 +63,17 @@ const CreateNewPodcast = () => {
               name="tag"
               type="text"
               onChange={(e) => setTag(e.target.value)}
+              className="input"
+              required
+            />
+          </div>
+          <div className="flex gap-[1rem] justify-between flex-col  pb-[1rem]">
+            <label className="font-[500]">Description </label>
+            <input
+              value={description}
+              name="tag"
+              type="text"
+              onChange={(e) => setDescription(e.target.value)}
               className="input"
               required
             />
