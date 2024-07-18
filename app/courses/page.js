@@ -12,7 +12,6 @@ const Courses = () => {
     async function fetchcourses() {
       try {
         const res = await getCourses();
-        console.log(res);
         setCourses(res);
       } catch (error) {
         setError("Something went wrong. Try Againcourses");

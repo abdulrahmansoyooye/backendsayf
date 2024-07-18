@@ -3,7 +3,6 @@ import { Newsletter } from "@/models/newsletter";
 import { connectToDb } from "../database";
 
 export const getNewsletter = async () => {
-  console.log("fetching Newsletter");
   await connectToDb();
   try {
     const newsletter = await Newsletter.find({});
@@ -16,7 +15,7 @@ export const getNewsletter = async () => {
 };
 
 export const EditNewsletter = async (newsletterId, title, link) => {
-  console.log("Editing this Newsletter");
+
   await connectToDb();
   try {
     await Newsletter.findByIdAndUpdate(newsletterId, {
@@ -31,7 +30,7 @@ export const EditNewsletter = async (newsletterId, title, link) => {
 };
 
 export const DeleteNewsletter = async (id) => {
-  console.log("Deleting this Newsletter");
+
   await connectToDb();
   try {
     const newsletter = await Newsletter.findByIdAndDelete(id);
@@ -43,7 +42,7 @@ export const DeleteNewsletter = async (id) => {
   }
 };
 export const getEachNewsletter = async (id) => {
-  console.log("fetching this Resources");
+
   await connectToDb();
   try {
     const newsletter = await Newsletter.findById(id);

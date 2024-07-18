@@ -16,6 +16,7 @@ const Nav = () => {
         <Link href={`/courses`}>Courses</Link>
         <Link href={`/resources`}>Resources</Link>
         <Link href={`/newsletter`}>NewsLetter</Link>
+        <Link href={`/anonymous`}>Anonymous</Link>
       </div>
     </div>
   );

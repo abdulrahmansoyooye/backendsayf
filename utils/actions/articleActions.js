@@ -4,7 +4,7 @@ import { sayfArticle } from "@/models/sayfArticle";
 import { connectToDb } from "../database";
 
 export const getsayfArticle = async (category) => {
-  console.log("fetching sayfArticle");
+
   await connectToDb();
   try {
     if (category == "All") {
@@ -20,7 +20,7 @@ export const getsayfArticle = async (category) => {
   }
 };
 export const getEachArticle = async (id) => {
-  console.log("fetching this Article");
+  
   await connectToDb();
   try {
     const article = await sayfArticle.findById(id);
@@ -40,7 +40,6 @@ export const EditArticle = async (
   tag,
   category
 ) => {
-  console.log("Editing this podcast");
   await connectToDb();
   try {
     await sayfArticle.findByIdAndUpdate(articleId, {
@@ -58,7 +57,7 @@ export const EditArticle = async (
 };
 
 export const DeleteArticle = async (id) => {
-  console.log("Deleting this podcast");
+
   await connectToDb();
   try {
     await sayfArticle.findByIdAndDelete(id);
@@ -84,7 +83,6 @@ export const createArticle = async (
   if (!imageUrl) {
     return { message: "Add an Image to continue" };
   }
-  console.log(imageUrl);
   try {
     await sayfArticle.create({
       title,

@@ -3,7 +3,7 @@ import { Podcasts } from "@/models/podcasts";
 import { connectToDb } from "../database";
 
 export const getPodcasts = async (category) => {
-  console.log("fetching Podcasts");
+
   await connectToDb();
   try {
     if (category == "All") {
@@ -24,7 +24,7 @@ export const getPodcasts = async (category) => {
   }
 };
 export const getEachPodcast = async (id) => {
-  console.log("fetching this podcast");
+ 
   await connectToDb();
   try {
     const podcast = await Podcasts.findById(id);
@@ -45,7 +45,6 @@ export const EditPodcast = async (
   audio,
   category
 ) => {
-  console.log("Editing this podcast");
   await connectToDb();
   try {
     await Podcasts.findByIdAndUpdate(podcastId, {
@@ -64,7 +63,6 @@ export const EditPodcast = async (
 };
 
 export const DeletePodcast = async (id) => {
-  console.log("Deleting this podcast");
   await connectToDb();
   try {
     await Podcasts.findByIdAndDelete(id);
@@ -129,7 +127,6 @@ export const getRelatedPodcasts = async (podcastId) => {
     const relatedPodcasts = await Podcasts.find({
       category: foundPodcast.category,
     });
-    console.log(JSON.stringify(foundPodcast._id));
     const filteredPodcast = relatedPodcasts.filter(
       ({ _id }) => _id == JSON.stringify(foundPodcast._id)
     );

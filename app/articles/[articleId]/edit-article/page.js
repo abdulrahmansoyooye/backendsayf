@@ -62,7 +62,6 @@ const Edit = () => {
         setTag(res.tag);
         setImage(res.imageUrl);
         setCategoryValue(res.category);
-        console.log(res);
       } catch (error) {
         setError("Something went wrong. Try Againarticles");
       }

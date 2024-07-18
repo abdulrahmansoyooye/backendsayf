@@ -4,7 +4,6 @@ import { Resources } from "@/models/resources";
 import { connectToDb } from "../database";
 
 export const getResources = async () => {
-  console.log("fetching Resources");
   await connectToDb();
   try {
     const res = await Resources.find({});
@@ -14,7 +13,7 @@ export const getResources = async () => {
   }
 };
 export const getEachResources = async (id) => {
-  console.log("fetching this Resources");
+
   await connectToDb();
   try {
     const resources = await Resources.findById(id);
@@ -33,7 +32,6 @@ export const EditResources = async (
   tag,
   description
 ) => {
-  console.log("Editing this Resources");
   await connectToDb();
   try {
     await Resources.findByIdAndUpdate(resourcesId, {
@@ -50,7 +48,6 @@ export const EditResources = async (
 };
 
 export const DeleteResources = async (id) => {
-  console.log("Deleting this Resources");
   await connectToDb();
   try {
     await Resources.findByIdAndDelete(id);

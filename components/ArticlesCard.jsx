@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 const ArticlesCard = ({ categoryId, _id, title, content, _createdAt }) => {
-  console.log(categoryId);
+ 
   const data = `${content.slice(
     0,
     220

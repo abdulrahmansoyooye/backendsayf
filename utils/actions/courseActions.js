@@ -3,7 +3,6 @@ import { Courses } from "@/models/courses";
 import { connectToDb } from "../database";
 
 export const getCourses = async () => {
-  console.log("fetching Courses");
   await connectToDb();
   try {
     const courses = await Courses.find({});
@@ -15,7 +14,7 @@ export const getCourses = async () => {
   }
 };
 export const getEachCourse = async (id) => {
-  console.log("fetching this course");
+
   await connectToDb();
   try {
     const course = await Courses.findById(id);
@@ -35,7 +34,6 @@ export const EditCourse = async (
   link,
   image
 ) => {
-  console.log("Editing this course");
   await connectToDb();
   try {
     await Courses.findByIdAndUpdate(courseId, {
@@ -53,7 +51,6 @@ export const EditCourse = async (
 };
 
 export const DeleteCourse = async (id) => {
-  console.log("Deleting this course");
   await connectToDb();
   try {
     const course = await Courses.findByIdAndDelete(id);
