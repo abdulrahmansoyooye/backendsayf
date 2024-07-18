@@ -1,17 +1,23 @@
 "use client";
 import { getAnonymousMessage } from "@/utils/actions/anonymousAction";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
 
 const Anonymous = () => {
+  const format = (type, createdAt) => {
+    if (type == "date") {
+      return moment(createdAt).format("MMMM d");
+    } else {
+      return moment(createdAt).format("dddd");
+    }
+  };
   const [content, setcontent] = useState([
     {
-      content:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vero suscipit aliquam laudantium cupiditate, non tenetur molestias cumque obcaecati recusandae atque odio, officia eveniet ex sed? Quo, nesciunt. A, tempora? Beatae!",
+      content: "Lorem ipsum, dolor sit amet consectetur.",
       _id: 1,
     },
     {
-      content:
-        "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Vero suscipit aliquam laudantium cupiditate, non tenetur molestias cumque obcaecati recusandae atque odio, officia eveniet ex sed? Quo, nesciunt. A, tempora? Beatae!",
+      content: "Lorem ipsum, dolor sit amet consectetur.",
       _id: 2,
     },
   ]);
@@ -34,9 +40,6 @@ const Anonymous = () => {
           <div className="text-[1.5rem] w-full text-center">
             Anonymous Messages
           </div>
-          {/* <div className="text-[1rem] cursor-pointer sm:w-[20%] w-[50%] text-center border border-red-500 p-[1rem] rounded-lg">
-            Clear Message
-          </div> */}
         </div>
 
         <div className="flex gap-[2rem] justify-center flex-wrap w-full ">
@@ -48,16 +51,18 @@ const Anonymous = () => {
               {`No Result`}
             </Link>
           ) : (
-            content.map(({ _id, content }) => (
+            content.map(({ _id, content, createdAt }) => (
               <div
-                className="border rounded-lg w-[45%] max-lg:w-full transition-all duration-300 "
+                className="flex flex-col gap-[1rem] border rounded-lg w-[45%] max-lg:w-full p-[1rem] transition-all duration-300 "
                 key={_id}
               >
-                <div className="">
-                  <div
-                    className="flex flex-col gap-[2rem] p-[1rem]"
-                    dangerouslySetInnerHTML={{ __html: content }}
-                  />
+                <div
+                  className="flex flex-col gap-[2rem] "
+                  dangerouslySetInnerHTML={{ __html: content }}
+                />
+                <div className="flex-between text-[11px] text-slate-500">
+                  <div>{format("time", createdAt)}</div>
+                  <div>{format("date", createdAt)}</div>
                 </div>
               </div>
             ))
