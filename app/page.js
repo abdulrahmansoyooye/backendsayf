@@ -4,9 +4,12 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-
   return (
     <main className="flex gap-[2rem] p-[2rem] flex-col">
+      <div className="text-[1.5rem] w-full text-center">
+        Welcome to the Dashboard, Create something new here!!
+      </div>
+
       <div className="flex flex-wrap  gap-[2rem] items-center  justify-center  p-[2rem] m-[2rem] rounded-md">
         <div className=" p-[1rem] bg-white border rounded-md hover:scale-[1.2] transition-all duration-300">
           <Link
@@ -48,9 +51,7 @@ export default function Home() {
             <div>Newsletter</div>
           </Link>{" "}
         </div>
-        
       </div>
-      
     </main>
   );
 }

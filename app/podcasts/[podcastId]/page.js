@@ -61,7 +61,7 @@ const EachPodcast = () => {
         </div>
         <div className="flex gap-[1rem] justify-between max-lg:flex-col ">
           <Link
-            className="bg-primary-color cursor-pointer p-[1rem] text-white text-center rounded-md w-[150px] h-[60px] max-lg:w-full hover:scale-[1.2] transition-all duration-500"
+            className="primary_btn"
             href={`/podcasts/${podcastId}/edit-podcast`}
           >
             Edit

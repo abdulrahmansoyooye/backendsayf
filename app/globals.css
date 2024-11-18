@@ -37,8 +37,11 @@ h1,
 .text {
   @apply text-primary-color;
 }
+.primary_btn {
+  @apply bg-primary-color hover:bg-secondary-color text-white transition-all duration-500 border border-primary-color  p-[1rem] rounded-md w-full text-center;
+}
 .black_btn {
-  @apply rounded-[0.4rem]  bg-[#D67D3E] p-[1rem_3rem] text-white transition-all duration-500  hover:bg-[#9C0F48]  cursor-pointer text-center text-sm  flex items-center justify-center shadow-[8px_5px_0_0_#f9e4d4];
+  @apply bg-primary-color hover:bg-secondary-color text-white transition-all duration-500 border border-primary-color  p-[1rem] rounded-md w-full text-center;
 }
 .input {
   @apply w-full rounded-md border border-gray-200 bg-white py-2.5 pl-5 pr-12 text-sm font-medium focus:border-primary-color focus:outline-none focus:ring-0;

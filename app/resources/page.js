@@ -81,7 +81,7 @@ const Resources = () => {
 
                       <div className="flex w-full flex-wrap gap-[1rem] hover:text-primary-color ">
                         {" "}
-                        <div className="hover:scale-[1.2] transition-all duration-500 border border-primary-color border-1 p-[1rem] rounded-md w-full text-center">
+                        <div className="primary_btn">
                           <Link href={`/resources/${_id}/edit-resources`}>
                             Edit
                           </Link>

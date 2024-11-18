@@ -52,7 +52,7 @@ const Articles = () => {
     <div className="flex flex-col serif">
       <Welcome title="Sayf Articles" text="Some articles for you to read" />
       {error && <p>{error}</p>}
-      <div className="flex flex-col gap-[2rem] sm:w-[80%] m-[2rem_auto] p-[2rem] ">
+      <div className="flex flex-col gap-[2rem] sm:w-[80%] m-[2rem_auto]   p-[2rem] ">
         <div className="flex gap-[1rem] justify-center flex-wrap ">
           <div
             className={`cursor-pointer  hover:border-primary-color p-[0.5rem] transition-all duration-500   bg-alt-color rounded-md  text-center w-[150px] ${
@@ -116,9 +116,7 @@ const Articles = () => {
                       />
                       <div className="flex w-full hover:text-primary-color ">
                         {" "}
-                        <p className="hover:scale-[1.2] transition-all duration-500 border border-primary-color border-1 p-[1rem] rounded-md w-full text-center">
-                          Read Article
-                        </p>
+                        <p className="primary_btn">Read Article</p>
                       </div>
                     </div>
                   </Link>

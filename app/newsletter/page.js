@@ -41,14 +41,14 @@ const Newsletter = () => {
     <div className="flex flex-col serif">
       <Welcome title="Newsletter" text="Some newsletter for you to read" />
       {error && <p>{error}</p>}
+      {deleteModal && (
+        <DeleteItem
+          DeleteThis={DeleteThisnewsletter}
+          deleteModal={deleteModal}
+          setDeleteModal={setDeleteModal}
+        />
+      )}
       <div className="flex flex-col gap-[2rem] sm:w-[80%] m-[2rem_auto] p-[2rem] ">
-        {deleteModal && (
-          <DeleteItem
-            DeleteThis={DeleteThisnewsletter}
-            deleteModal={deleteModal}
-            setDeleteModal={setDeleteModal}
-          />
-        )}
         <div className="flex gap-[2rem] justify-center flex-wrap  w-full">
           {newsletter && newsletter.length === 0 ? (
             <Link
@@ -69,14 +69,10 @@ const Newsletter = () => {
                       <div className="flex justify-between flex-wrap gap-[0.5rem]">
                         <div className="text-[1.5rem] font-[500]">{title}</div>
                       </div>
-                      <div className="flex justify-between flex-wrap gap-[0.5rem]">
-                        <div className="text-[0.9rem] text-blue-400 font-[500]">
-                          {link}
-                        </div>
-                      </div>
+
                       <div className="flex w-full flex-wrap gap-[1rem] hover:text-primary-color ">
                         {" "}
-                        <div className="hover:scale-[1.2] transition-all duration-500 border border-primary-color border-1 p-[1rem] rounded-md w-full text-center">
+                        <div className="primary_btn">
                           <Link href={`/newsletter/${_id}/edit-newsletter`}>
                             Edit
                           </Link>

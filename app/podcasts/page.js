@@ -105,7 +105,7 @@ const Podcasts = () => {
                       <div className="">{description}</div>
                       <div className="flex w-full hover:text-primary-color ">
                         {" "}
-                        <p className="hover:scale-[1.2] transition-all duration-500 border border-primary-color border-1 p-[1rem] rounded-md w-full text-center">
+                        <p className="primary_btn">
                           See Podcast
                         </p>
                       </div>
