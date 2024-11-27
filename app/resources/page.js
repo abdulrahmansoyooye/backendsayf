@@ -65,11 +65,14 @@ const Resources = () => {
                 <div className="">
                   <div className="font-[400] cursor-pointer">
                     <div className="w-full">
-                      <img
-                        src={"/assets/pdf.png"}
-                        className="w-full h-[250px] object-cover rounded-md "
-                        alt="article-img"
-                      />
+                      <object
+                        width="100%"
+                        height="400"
+                        data={pdf}
+                        type="application/pdf"
+                      >
+                        {" "}
+                      </object>
                     </div>
                     <div className="flex flex-col gap-[2rem] p-[1rem]">
                       <div className="flex justify-between flex-wrap gap-[0.5rem]">

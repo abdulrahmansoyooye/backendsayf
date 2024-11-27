@@ -16,15 +16,7 @@ export const rubik = Rubik({
   display: "swap",
   variable: "--font-rubik",
 });
-import {
-  Dialog,
-  DialogBackdrop,
-  DialogPanel,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuItems,
-} from "@headlessui/react";
+
 export const metadata = {
   title: "Sayf Admin Dashboard",
   description: "Manage,Control your data",
@@ -41,8 +33,8 @@ export default function RootLayout({ children }) {
             <Nav />
           </div>
 
-          <main className="py-10">
-            <div className="px-4 ">{children}</div>
+          <main className="py-10 sm:ml-60 ">
+            <div className=" ">{children}</div>
           </main>
         </div>
       </body>
