@@ -6,26 +6,13 @@ import {
   DialogPanel,
   Menu,
   MenuButton,
-  MenuItem,
-  MenuItems,
   TransitionChild,
 } from "@headlessui/react";
 import {
   Bars3Icon,
-  BellIcon,
-  CalendarIcon,
-  ChartPieIcon,
-  Cog6ToothIcon,
-  DocumentDuplicateIcon,
-  FolderIcon,
-  HomeIcon,
-  UsersIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import {
-  ChevronDownIcon,
-  MagnifyingGlassIcon,
-} from "@heroicons/react/20/solid";
+
 import { navigation } from "../constants/index.js";
 import { classNames } from "../constants/index.js";
 import { usePathname } from "next/navigation";
@@ -119,12 +106,12 @@ const MobileNav = () => {
           </button>
 
           {/* Separator */}
-          <div className="hidden  w-full lg:flex flex-1 gap-x-4 self-stretch ">
+          <div className="  w-full flex flex-1 gap-x-4 self-stretch ">
             <div className="flex items-center gap-x-4 lg:gap-x-6">
               {/* Separator */}
               <div
                 aria-hidden="true"
-                className="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-200"
+                className=" block lg:h-6 lg:w-px lg:bg-gray-200"
               />
 
               {/* Profile dropdown */}
@@ -136,7 +123,7 @@ const MobileNav = () => {
                     src="/images/sayf.jpg"
                     className="h-8 w-auto rounded-[50%]"
                   />
-                  <span className="hidden lg:flex lg:items-center">
+                  <span className="flex lg:items-center">
                     <span
                       aria-hidden="true"
                       className="ml-4 text-sm/6  text-gray-900"
