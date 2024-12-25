@@ -6,6 +6,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { EditPodcast, getEachPodcast } from "@/utils/actions/podcastActions";
 import FileUpload from "@/components/FileUpload";
+import DatePicker from "@/components/DatePicker";
 
 const Edit = () => {
   const [title, setTitle] = useState("");
@@ -19,6 +20,8 @@ const Edit = () => {
     "Productivity",
     "Career",
   ]);
+  const [publishDate, setPublishdate] = useState("");
+
   const [categoryValue, setCategoryValue] = useState("");
   const { podcastId } = useParams();
   const router = useRouter();
@@ -34,6 +37,8 @@ const Edit = () => {
         setImage(res.imageUrl);
         setAudio(res.audio);
         setCategoryValue(res.category);
+        setPublishdate(res.publishDate)
+
       } catch (error) {
         setError("Something went wrong. Try Again");
       }
@@ -44,6 +49,7 @@ const Edit = () => {
     setTitle("");
     setDescription("");
     setTag("");
+    setPublishdate("")
     try {
       const res = await EditPodcastWithId(
         title,
@@ -51,7 +57,8 @@ const Edit = () => {
         image,
         tag,
         audio,
-        categoryValue
+        categoryValue,
+        publishDate
       );
       if (res.status === 201) {
         router.push("/podcasts");
@@ -125,6 +132,9 @@ const Edit = () => {
               className="input"
             />
           </div>
+          <div>
+          <DatePicker publishDate={publishDate} setPublishdate={setPublishdate}/>
+        </div>
           <div className="flex gap-[1rem] justify-between flex-col  pb-[1rem]">
             <label className="font-[500]">Edit Audio </label>
             <FileUpload file={audio} setFile={setAudio} audio />

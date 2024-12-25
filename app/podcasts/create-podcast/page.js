@@ -4,6 +4,7 @@ import FileUpload from "@/components/FileUpload";
 import { createPodcast } from "@/utils/actions/podcastActions";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import DatePicker from "@/components/DatePicker";
 
 const CreateNewPodcast = () => {
   const [title, setTitle] = useState("");
@@ -12,6 +13,7 @@ const CreateNewPodcast = () => {
   const [tag, setTag] = useState("");
   const [audio, setAudio] = useState(null);
   const [message, setMessage] = useState("");
+  const [publishDate, setPublishdate] = useState("");
 
   const [categories, setCategories] = useState([
     "Self Development",
@@ -26,6 +28,8 @@ const CreateNewPodcast = () => {
     setImage("");
     setDescription("");
     setTag("");
+    setPublishdate("")
+
     try {
       const res = await createPodcast(
         title,
@@ -33,7 +37,8 @@ const CreateNewPodcast = () => {
         tag,
         categoryValue,
         image,
-        audio
+        audio,
+        publishDate
       );
       if (res.status === 201) {
         router.push("/podcasts");
@@ -120,6 +125,11 @@ const CreateNewPodcast = () => {
           <div className="flex gap-[1rem] justify-between flex-col  pb-[1rem]">
             <label className="font-[500]">Upload Podcast </label>
             <FileUpload file={audio} setFile={setAudio} audio />
+          </div>
+          <div>
+          <div>
+          <DatePicker publishDate={publishDate} setPublishdate={setPublishdate}/>
+        </div>
           </div>
           <button type="submit" className="black_btn">
             Create Podcast

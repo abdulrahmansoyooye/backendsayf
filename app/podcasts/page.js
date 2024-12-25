@@ -61,9 +61,12 @@ const Podcasts = () => {
           {categories &&
             categories.map((category) => (
               <div
+                key={category}
                 className={`cursor-pointer border hover:border-primary-color p-[0.5rem] transition-all duration-500 bg-alt-color border-alt-color border-1 rounded-md  text-center  w-[150px] ${
                   category == currentCategory && "border-primary-color"
-                }`}
+                }`
+               
+              }
                 onClick={() => handleCategoryClick(category)}
                 key={category}
               >
@@ -81,7 +84,7 @@ const Podcasts = () => {
             </Link>
           ) : (
             podcasts.map(({ _id, title, description, tag, audio, imageUrl }) => (
-              <div className=" border-alt-color border-2 rounded-md w-[45%] max-lg:w-full transition-all duration-300 ">
+              <div key={_id} className=" border-alt-color border-2 rounded-md w-[45%] max-lg:w-full transition-all duration-300 ">
                 <div className="">
                   <Link
                     href={`/podcasts/${_id}`}

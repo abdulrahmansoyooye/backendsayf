@@ -128,7 +128,7 @@ const MobileNav = () => {
                       aria-hidden="true"
                       className="ml-4 text-sm/6  text-gray-900"
                     >
-                      Sayf Network Admin Dashbaord
+                      Sayf Admin Dashbaord
                     </span>
                   </span>
                 </MenuButton>

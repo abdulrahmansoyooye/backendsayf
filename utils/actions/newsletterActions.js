@@ -7,20 +7,21 @@ export const getNewsletter = async () => {
   try {
     const newsletter = await Newsletter.find({});
 
-    const response = JSON.parse(JSON.stringify(newsletter));
+    const response = JSON.parse(JSON.stringify(newsletter.reverse()));
     return response;
   } catch (error) {
     console.log(error);
   }
 };
 
-export const EditNewsletter = async (newsletterId, title, link) => {
+export const EditNewsletter = async (newsletterId, title, link,publishDate) => {
 
   await connectToDb();
   try {
     await Newsletter.findByIdAndUpdate(newsletterId, {
       title,
       link,
+      publishDate
     });
 
     return { message: "Newsletter has Edited", status: 201 };
@@ -53,12 +54,13 @@ export const getEachNewsletter = async (id) => {
     console.log(error);
   }
 };
-export const createNewsletter = async (title, link) => {
+export const createNewsletter = async (title, link,publishDate) => {
   try {
     await connectToDb();
     const newsletter = await Newsletter.create({
       title,
       link,
+      publishDate
     });
     await newsletter.save();
     return { message: "Podcast has been Created", status: 201 };

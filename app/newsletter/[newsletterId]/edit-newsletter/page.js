@@ -6,11 +6,13 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import { EditNewsletter, getEachNewsletter } from "@/utils/actions/newsletterActions";
+import DatePicker from "@/components/DatePicker";
 
 const Edit = () => {
   const [title, setTitle] = useState("");
   const [link, setLink] = useState("");
   const [message, setMessage] = useState("");
+  const [publishDate, setPublishdate] = useState("");
 
   const { newsletterId } = useParams();
   const router = useRouter();
@@ -22,6 +24,7 @@ const Edit = () => {
         const res = await getEachNewsletter(newsletterId);
         setTitle(res.title);
         setLink(res.link);
+        setPublishdate(res.publishDate)
       } catch (error) {
         setMessage("Something went wrong. Try Again");
       }
@@ -31,6 +34,8 @@ const Edit = () => {
   const handleSubmit = async () => {
     setTitle("");
     setLink("");
+    setPublishdate("")
+
     try {
       const res = await 
       EditNewsletterWithId(title, link);
@@ -70,6 +75,8 @@ const Edit = () => {
               className="input"
             />
           </div>
+          <div className="w-full"><DatePicker publishDate={publishDate} setPublishdate={setPublishdate}/></div>
+          
 
           <button type="submit" className="black_btn">
             Edit Newsletter

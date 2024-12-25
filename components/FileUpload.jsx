@@ -40,7 +40,7 @@ const FileUpload = ({ file, setFile, audio }) => {
         onDrop,
         accept: {
           "image/*": [],
-          "pdf/*": [],
+          ".pdf/*": [],
         },
       });
   return (

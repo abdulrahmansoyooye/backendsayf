@@ -43,7 +43,8 @@ export const EditPodcast = async (
   imageUrl,
   tag,
   audio,
-  category
+  category,
+  publishDate
 ) => {
   await connectToDb();
   try {
@@ -54,6 +55,7 @@ export const EditPodcast = async (
       tag,
       audio,
       category,
+      publishDate
     });
 
     return { message: "Podcast was Edited", status: 201 };
@@ -79,7 +81,8 @@ export const createPodcast = async (
   tag,
   categoryValue,
   imageUrl,
-  audio
+  audio,
+  publishDate
 ) => {
   await connectToDb();
   if (!categoryValue) {
@@ -99,6 +102,7 @@ export const createPodcast = async (
       category: categoryValue,
       imageUrl,
       audio,
+      publishDate
     });
     return { message: "Podcast has been Created", status: 201 };
   } catch (error) {

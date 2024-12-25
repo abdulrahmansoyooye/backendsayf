@@ -9,6 +9,7 @@ const PodcstSchema = new Schema(
     tag: { type: String, required: true },
     imageUrl: { type: String, required: true },
     audio: { type: String, required: true },
+    publishDate :{ type: String },
   },
   {
     timestamps: true,

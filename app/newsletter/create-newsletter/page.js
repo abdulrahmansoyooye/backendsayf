@@ -3,19 +3,20 @@
 import { createNewsletter } from "@/utils/actions/newsletterActions";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-
+import DatePicker from "@/components/DatePicker";
 const CreateNewPodcast = () => {
   const [title, setTitle] = useState("");
   const [link, setLink] = useState("");
   const [message, setMessage] = useState("");
-
+  const [publishDate, setPublishdate] = useState("");
   const router = useRouter();
 
   const handleSubmit = async () => {
     setTitle("");
     setLink("");
+    setPublishdate("")
     try {
-      const res = await createNewsletter(title, link);
+      const res = await createNewsletter(title, link,publishDate);
       if (res.status === 201) {
         router.push("/newsletter");
       } else {
@@ -57,7 +58,10 @@ const CreateNewPodcast = () => {
               required
             />
           </div>
+          <div className="w-full">
 
+            <DatePicker publishDate={publishDate} setPublishdate={setPublishdate}/>
+          </div>
           <button type="submit" className="black_btn">
             Add newsletter
           </button>
