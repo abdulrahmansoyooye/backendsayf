@@ -3,9 +3,9 @@ import { Schema } from "mongoose";
 
 const NewsletterSchema = new Schema(
   {
-    title: { type: String, required: true },
-    publishDate : { type: String, },
+    title: { type: String, required: true }, 
     link: { type: String, required: true },
+    publishDate : { type: String, },
   },
   {
     timestamps: true,

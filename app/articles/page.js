@@ -8,7 +8,7 @@ import {
 } from "@/utils/actions/articleActions";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-
+import {Button} from "@/components/ui/button"
 const Articles = () => {
   const [articles, setArticles] = useState([]);
   const [currentCategory, setCurrentCategory] = useState("All");
@@ -49,9 +49,14 @@ const Articles = () => {
     }
   };
   return (
-    <div className="flex flex-col serif">
-      <Welcome title="Sayf Articles" text="Some articles for you to read" />
+    <div className="flex flex-col ">
+      <Welcome title="Articles" text="Some articles for you to read" />
       {error && <p>{error}</p>}
+      <Button className="w-[50%] m-auto ">
+        <Link href="/articles/create-article">
+         Create Article
+        </Link>
+      </Button>
       <div className="flex flex-col gap-[2rem] sm:w-[80%] m-[2rem_auto]   p-[2rem] ">
         <div className="flex gap-[1rem] justify-center flex-wrap ">
           <div

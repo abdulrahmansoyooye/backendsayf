@@ -1,4 +1,4 @@
-import { Poppins, Rubik } from "next/font/google";
+import { Poppins, Inika } from "next/font/google";
 
 import "./globals.css";
 import Nav from "@/components/Nav";
@@ -9,9 +9,9 @@ const bree_Serif = Poppins({
   display: "swap",
   variable: "--font-bree_serif",
 });
-export const rubik = Rubik({
+export const rubik = Inika({
   subsets: ["latin"],
-  weight: ["300", "400", "600", "500", "700", "800"],
+  weight: [ "400", "700"],
 
   display: "swap",
   variable: "--font-rubik",
@@ -34,7 +34,7 @@ export default function RootLayout({ children }) {
           </div>
 
           <main className="py-10 sm:ml-60 ">
-            <div className=" ">{children}</div>
+            <div className=" sm:ml-20">{children}</div>
           </main>
         </div>
       </body>

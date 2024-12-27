@@ -6,6 +6,7 @@ import {
 } from "@/utils/actions/podcastActions";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import {Button} from "@/components/ui/button"
 
 const Podcasts = () => {
   const [podcasts, setpodcasts] = useState([]);
@@ -45,9 +46,14 @@ const Podcasts = () => {
     }
   };
   return (
-    <div className="flex flex-col serif">
+    <div className="flex flex-col ">
       <Welcome title="Podcasts" text="Some podcasts for you to read" />
       {error && <p>{error}</p>}
+      <Button className="w-[50%] m-auto ">
+        <Link href="/podcasts/create-podcast">
+         Create Podcast
+        </Link>
+      </Button>
       <div className="flex flex-col gap-[2rem] sm:w-[80%] m-[2rem_auto] p-[2rem] ">
         <div className="flex gap-[1rem] justify-center flex-wrap ">
           <div

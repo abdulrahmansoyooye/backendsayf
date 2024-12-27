@@ -1,57 +1,57 @@
-"use client";
-import { getAnonymousMessage } from "@/utils/actions/anonymousAction";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+"use client"
+import {useEffect, useState}  from "react"
+import { MetricsGrid } from "@/components/dashboard/stats/metrics-grid"
+import { RevenueChart } from "@/components/dashboard/charts/revenue-chart"
+import { ActivityList } from "@/components/dashboard/activity/activity-list"
+import {
+  getAllData,
+} from "@/utils/actions/data";
+import { getMessages } from "@/utils/actions/data";
 
-export default function Home() {
+
+export default function DashboardPage() {
+  const [datacount, setDataCount] = useState([]);
+  const [messages, setMessages] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await getAllData();
+        setDataCount(res);
+      } catch (error) {
+        console.error("Something went wrong. Try");
+      }
+    } 
+     
+    async function fetchData() {
+      try {
+        const res = await getAllData();
+        setDataCount(res);
+      } catch (error) {
+        console.error("Something went wrong. Try");
+      }
+    } 
+    async function fetchMessages() {
+      try {
+        const res = await getMessages();
+        setMessages(res);
+      } catch (error) {
+        console.error("Something went wrong. Try");
+      }
+    } 
+    fetchMessages()
+    fetchData()
+  }, []);
   return (
-    <main className="flex gap-[2rem] p-[2rem] flex-col">
-      <div className="text-[1.5rem] w-full text-center">
-        Welcome to the Dashboard, Create something new here!!
+    <div className="pl-30 flex-1 space-y-4 p-8 pt-6">
+      <div className="flex items-center justify-between space-y-2">
+        <h2 className="text-3xl tracking-tight">Dashboard</h2>
       </div>
-
-      <div className="flex flex-wrap  gap-[2rem] items-center  justify-center  p-[2rem] m-[2rem] rounded-md">
-        <div className=" p-[1rem] bg-white border rounded-md hover:scale-[1.2] transition-all duration-300">
-          <Link
-            href={`/articles/create-article`}
-            className="font-[400] cursor-pointer"
-          >
-            <div>Article</div>
-          </Link>
-        </div>
-        <div className=" p-[1rem]   bg-white border  rounded-md hover:scale-[1.2] transition-all duration-300">
-          <Link
-            href={`/podcasts/create-podcast`}
-            className="font-[400] cursor-pointer"
-          >
-            <div>Podcast</div>
-          </Link>
-        </div>
-        <div className=" p-[1rem]  bg-white border rounded-md hover:scale-[1.2] transition-all duration-300">
-          <Link
-            href={`/courses/create-course`}
-            className="font-[400] cursor-pointer"
-          >
-            <div>Course</div>
-          </Link>{" "}
-        </div>
-        <div className=" p-[1rem]  bg-white border rounded-md hover:scale-[1.2] transition-all duration-300">
-          <Link
-            href={`/resources/create-resources`}
-            className="font-[400] cursor-pointer"
-          >
-            <div>Resources</div>
-          </Link>{" "}
-        </div>
-        <div className=" p-[1rem]  bg-white border rounded-md hover:scale-[1.2] transition-all duration-300">
-          <Link
-            href={`/newsletter/create-newsletter`}
-            className="font-[400] cursor-pointer"
-          >
-            <div>Newsletter</div>
-          </Link>{" "}
-        </div>
+      <MetricsGrid data={datacount}/>
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
+        <RevenueChart />
+        <ActivityList messages={messages}/>
       </div>
-    </main>
-  );
+    </div>
+  )
 }

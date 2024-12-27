@@ -4,6 +4,7 @@ import Welcome from "@/components/Welcome";
 import { getCourses } from "@/utils/actions/courseActions";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import {Button} from "@/components/ui/button"
 
 const Courses = () => {
   const [courses, setCourses] = useState([]);
@@ -20,9 +21,14 @@ const Courses = () => {
     fetchcourses();
   }, []);
   return (
-    <div className="flex flex-col rubik">
+    <div className="flex flex-col">
       <Welcome title="Courses" text="Some courses for you to read" />
       {error && <p>{error}</p>}
+      <Button className="w-[50%] m-auto ">
+        <Link href="/courses/create-course">
+         Create Course
+        </Link>
+      </Button>
       <div className="flex flex-col gap-[2rem] sm:w-[80%] m-[2rem_auto] p-[2rem] ">
         <div className="flex gap-[2rem] justify-center flex-wrap  w-full">
           {courses && courses.length === 0 ? (

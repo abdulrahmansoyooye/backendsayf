@@ -38,7 +38,7 @@ const Edit = () => {
 
     try {
       const res = await 
-      EditNewsletterWithId(title, link);
+      EditNewsletterWithId(title, link,publishDate);
       if (res.status === 201) {
         router.push("/newsletter");
       } else {

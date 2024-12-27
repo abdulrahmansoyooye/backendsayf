@@ -6,9 +6,9 @@ import { connectToDb } from "../database";
 export const getAnonymousMessage = async () => {
   await connectToDb();
   try {
-    const foundArticle = await Anonymous.find({});
+    const foundMessage = await Anonymous.find({});
 
-    return JSON.parse(JSON.stringify(foundArticle.reverse()));
+    return JSON.parse(JSON.stringify(foundMessage.reverse()));
   } catch (error) {
     console.log(error);
   }

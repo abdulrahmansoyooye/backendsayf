@@ -5,6 +5,7 @@ import {
   DeleteResources,
   getResources,
 } from "@/utils/actions/resourcesActions";
+import {Button} from "@/components/ui/button"
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -37,9 +38,14 @@ const Resources = () => {
     router.push("/resources");
   };
   return (
-    <div className="flex flex-col serif">
+    <div className="flex flex-col">
       <Welcome title="Resources" text="Some Resources for you to read" />
       {error && <p>{error}</p>}
+      <Button className="w-[50%] m-auto ">
+        <Link href="/resources/create-resources">
+         Create Resource
+        </Link>
+      </Button>
       <div className="flex flex-col gap-[2rem] sm:w-[80%] m-[2rem_auto] p-[2rem] ">
         {deleteModal && (
           <DeleteItem

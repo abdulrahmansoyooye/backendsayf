@@ -9,6 +9,7 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import {Button} from "@/components/ui/button"
 
 const Newsletter = () => {
   const [newsletter, setNewsletter] = useState([]);
@@ -38,7 +39,7 @@ const Newsletter = () => {
     window.location.reload();
   };
   return (
-    <div className="flex flex-col serif">
+    <div className="flex flex-col">
       <Welcome title="Newsletter" text="Some newsletter for you to read" />
       {error && <p>{error}</p>}
       {deleteModal && (
@@ -48,6 +49,11 @@ const Newsletter = () => {
           setDeleteModal={setDeleteModal}
         />
       )}
+         <Button className="w-[50%] m-auto ">
+        <Link href="/newsletter/create-newsletter">
+         Create Newsletter
+        </Link>
+      </Button>
       <div className="flex flex-col gap-[2rem] sm:w-[80%] m-[2rem_auto] p-[2rem] ">
         <div className="flex gap-[2rem] justify-center flex-wrap  w-full">
           {newsletter && newsletter.length === 0 ? (
