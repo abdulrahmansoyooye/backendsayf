@@ -1,78 +1,38 @@
 "use client";
-import { uploadFiles } from "@/utils/actions/upload";
-import { useCallback, useState } from "react";
-import { useFormState } from "react-dom";
-import { useDropzone } from "react-dropzone";
-const FileUpload = ({ file, setFile, audio }) => {
-  const [uploadFile, setUploadFile] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+import { CldUploadWidget } from "next-cloudinary";
+import { useState } from "react";
 
-  const formData = new FormData();
-  formData.append("file", uploadFile);
-  const uploadFileToServer = uploadFiles.bind(null, formData);
-  const handleSubmit = async () => {
-    setLoading(true);
-    try {
-      const res = await uploadFileToServer();
-      setFile(res.data.url);
-      setUploadFile("");
-      setLoading(false);
-      setMessage(`${audio ? "Audio" : "Image"} was uploaded successfully`);
-    } catch (error) {
-      setMessage("Couldn't upload File to server. Try Again");
-      setLoading(false);
-    }
-  };
+const FileUpload = ({ file, setFile, type}) => {
 
-  const onDrop = useCallback((acceptedFiles) => {
-    setUploadFile(acceptedFiles[0]);
-  }, []);
-
-  const { getRootProps, getInputProps, isDragActive } = audio
-    ? useDropzone({
-        onDrop,
-        accept: {
-          "audio/*": [],
-        },
-      })
-    : useDropzone({
-        onDrop,
-        accept: {
-          "image/*": [],
-          "application/pdf": [],
-        },
-      });
+  
   return (
-    <div className="border p-[1rem] rounded-md ">
-      {message && (
-        <p className="text-primary-color text-center m-[0.5rem_auto]">
-          {message}
-        </p>
-      )}
-
-      <div className="flex justify-center items-center flex-wrap gap-[1rem]">
-        <div {...getRootProps()} className="cursor-pointer">
-          <input accept={audio ? "audio/*" : "image/*"} {...getInputProps()} />
-          {isDragActive ? (
-            <p>Drop the {`${audio ? "Audio" : "Image"}`} here ...</p>
-          ) : (
-            <p>Click to select an {`${audio ? "Audio" : "Image"}`}</p>
-          )}
-        </div>
-
-        {uploadFile && <p className="text-center">{uploadFile.name}</p>}
-        {uploadFile && (
+    <div>
+      <CldUploadWidget
+        cloudName={process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
+        apiKey={process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY}
+        apiSecret={process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET}
+        onSuccess={(result, { widget }) => {
+            console.log(`Success! Here is the uploaded file info:`, result?.info.secure_url);
+            setFile(result?.info.secure_url);  
+          }}
+        options={{
+          sources: ["local"], // File sources
+          resourceType: "auto", // Allow images, videos, PDFs, etc.
+          multiple: false, // Allow multiple uploads if set to true
+          clientAllowedFormats: [type], // Restrict file types
+        }}
+        uploadPreset={process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET}
+      >
+        {({ open }) => (
           <button
-            type="submit"
-            className="black_btn"
-            disabled={loading}
-            onClick={handleSubmit}
+            onClick={() =>open()} 
+            disabled={file}
+            className="bg-black w-full text-white py-2 px-4 rounded hover:bg-gray-900"
           >
-            {loading ? "Uploading" : "Upload"}
+            Upload {type}
           </button>
         )}
-      </div>
+      </CldUploadWidget>
     </div>
   );
 };

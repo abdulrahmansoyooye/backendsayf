@@ -143,7 +143,7 @@ const Edit = () => {
               />
             </div>
             <label className="font-[500]">Edit Image </label>
-            <FileUpload file={image} setFile={setImage} />
+            <FileUpload file={image} setFile={setImage} type={"image"}/>
           </div>
           <div className="flex gap-[1rem] items-start flex-col  pb-[1rem]">
             <label className="font-[500]">Content</label>

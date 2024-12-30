@@ -109,7 +109,7 @@ const CreateNewPodcast = () => {
           )}
           <div className="flex gap-[1rem] justify-between flex-col  pb-[1rem]">
             <label className="font-[500]">Upload Image </label>
-            <FileUpload file={image} setFile={setImage} />
+            <FileUpload file={image} setFile={setImage} type={"image"}/>
           </div>
           <div className="flex gap-[1rem] justify-between flex-col  pb-[1rem]">
             <label className="font-[500]">Tag </label>
@@ -124,7 +124,7 @@ const CreateNewPodcast = () => {
           </div>
           <div className="flex gap-[1rem] justify-between flex-col  pb-[1rem]">
             <label className="font-[500]">Upload Podcast </label>
-            <FileUpload file={audio} setFile={setAudio} audio />
+            <FileUpload file={audio} setFile={setAudio} type={"audio"} />
           </div>
           <div>
           <div>

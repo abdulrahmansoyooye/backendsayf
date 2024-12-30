@@ -26,6 +26,13 @@ export const navigation = [
     icon: DocumentDuplicateIcon,
     current: false,
   },
+  {
+    name: "Courses",
+    href: "/courses",
+    icon: DocumentDuplicateIcon,
+    current: false,
+  },
+  
   { name: "Resources", href: "/resources", icon: ChartPieIcon, current: false },
 ];
 

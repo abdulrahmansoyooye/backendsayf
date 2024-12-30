@@ -1,13 +1,10 @@
 "use client"
 import {useEffect, useState}  from "react"
-import { MetricsGrid } from "@/components/dashboard/stats/metrics-grid"
-import { RevenueChart } from "@/components/dashboard/charts/revenue-chart"
-import { ActivityList } from "@/components/dashboard/activity/activity-list"
-import {
-  getAllData,
-} from "@/utils/actions/data";
-import { getMessages } from "@/utils/actions/data";
 
+import { getAllData, getMessages } from "@/utils/actions/data";
+import { MetricsGrid } from "@/components/dashboard/stats/metrics-grid";
+import { RevenueChart } from "@/components/dashboard/charts/revenue-chart";
+import { ActivityList } from "@/components/dashboard/activity/activity-list";
 
 export default function DashboardPage() {
   const [datacount, setDataCount] = useState([]);

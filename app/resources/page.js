@@ -5,11 +5,12 @@ import {
   DeleteResources,
   getResources,
 } from "@/utils/actions/resourcesActions";
-import {Button} from "@/components/ui/button"
-
+import dynamic from "next/dynamic";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+const PdfImage = dynamic(() => import("@/components/PdfImage"), { ssr: false });
 
 const Resources = () => {
   const [resources, setResources] = useState([]);
@@ -17,6 +18,7 @@ const Resources = () => {
   const [resourcesId, setresourcesId] = useState("");
   const [error, setError] = useState("");
   const router = useRouter();
+
   useEffect(() => {
     async function fetchResources() {
       try {
@@ -29,22 +31,41 @@ const Resources = () => {
 
     fetchResources();
   }, []);
+
   const handleDelete = (_id) => {
     setresourcesId(_id);
     setDeleteModal(!deleteModal);
   };
+
   const DeleteThisResources = async () => {
     await DeleteResources(resourcesId);
     router.push("/resources");
   };
+
+  const renderPdfThumbnail = async (pdfUrl) => {
+    const loadingTask = pdfjsLib.getDocument(pdfUrl);
+    const pdf = await loadingTask.promise;
+    const page = await pdf.getPage(1);
+    const viewport = page.getViewport({ scale: 1 });
+    const canvas = document.createElement("canvas");
+    const context = canvas.getContext("2d");
+    canvas.height = viewport.height;
+    canvas.width = viewport.width;
+
+    const renderContext = {
+      canvasContext: context,
+      viewport: viewport,
+    };
+    await page.render(renderContext).promise;
+    return canvas.toDataURL();
+  };
+
   return (
     <div className="flex flex-col">
       <Welcome title="Resources" text="Some Resources for you to read" />
       {error && <p>{error}</p>}
       <Button className="w-[50%] m-auto ">
-        <Link href="/resources/create-resources">
-         Create Resource
-        </Link>
+        <Link href="/resources/create-resources">Create Resource</Link>
       </Button>
       <div className="flex flex-col gap-[2rem] sm:w-[80%] m-[2rem_auto] p-[2rem] ">
         {deleteModal && (
@@ -71,14 +92,7 @@ const Resources = () => {
                 <div className="">
                   <div className="font-[400] cursor-pointer">
                     <div className="w-full">
-                      <object
-                        width="100%"
-                        height="400"
-                        data={pdf}
-                        type="application/pdf"
-                      >
-                        {" "}
-                      </object>
+                     <PdfImage pdfUrl={pdf}/>
                     </div>
                     <div className="flex flex-col gap-[2rem] p-[1rem]">
                       <div className="flex justify-between flex-wrap gap-[0.5rem]">

@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  --primary-color: #d67d3e;
+  --primary-color: #0000;
   --secondary-color: #470d21;
   --text-color: #111111;
   --alt-color: #f6f6f6;
@@ -38,10 +38,10 @@ h1,
   @apply text-primary-color;
 }
 .primary_btn {
-  @apply bg-primary-color hover:bg-secondary-color text-white transition-all duration-500 border border-primary-color  p-[1rem] rounded-md w-full text-center;
+  @apply bg-[#000] hover:bg-secondary-color text-white transition-all duration-500 border  p-[1rem] rounded-md w-full text-center;
 }
 .black_btn {
-  @apply bg-primary-color hover:bg-secondary-color text-white transition-all duration-500 border border-primary-color  p-[1rem] rounded-md w-full text-center;
+  @apply bg-[#000] hover:bg-secondary-color text-white transition-all duration-500 border  p-[1rem] rounded-md w-full text-center;
 }
 .input {
   @apply w-full rounded-md border border-gray-200 bg-white py-2.5 pl-5 pr-12 text-sm font-medium focus:border-primary-color focus:outline-none focus:ring-0;

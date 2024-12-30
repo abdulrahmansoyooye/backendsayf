@@ -135,7 +135,7 @@ const CreateNewArticle = () => {
           )}
           <div className="flex gap-[1rem] justify-between flex-col  pb-[1rem]">
             <label className="font-[500]">Upload Image </label>
-            <FileUpload file={image} setFile={setImage} />
+            <FileUpload file={image} setFile={setImage} type={"image"}/>
           </div>
 
           <div className="flex gap-[1rem] justify-between flex-col  pb-[1rem]">

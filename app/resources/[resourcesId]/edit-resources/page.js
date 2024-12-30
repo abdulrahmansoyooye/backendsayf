@@ -68,7 +68,7 @@ const Edit = () => {
 
           <div className="flex gap-[1rem] justify-between flex-col  pb-[1rem]">
             <label className="font-[500]">Edit Image </label>
-            <FileUpload file={pdf} setFile={setPdf} />
+            <FileUpload file={pdf} setFile={setPdf} type={"pdf"}/>
           </div>
           <div className="flex gap-[1rem] justify-between flex-col  pb-[1rem]">
             <label className="font-[500]">Tag </label>
