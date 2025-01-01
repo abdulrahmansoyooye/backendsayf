@@ -1,27 +1,39 @@
 {
-    "name": "sayfbackend",
-    "version": "1.0.0",
-    "private": true,
-    "scripts": {
-        "dev": "next dev",
-        "build": "next build",
-        "start": "next start",
-        "lint": "next lint"
-    },
-    "dependencies": {
-        "next": "latest",
-        "react": "latest",
-        "react-dom": "latest",
-        "shadcn": "latest",
-        "cloudinary": "latest",
-        "react-icons": "latest",
-        "hero-icons": "latest",
-        "next-cloudinary": "latest",
-        "react-pdf": "^5.3.0",
-        "pdfjs-dist": "^4.8.69"
-    },
-    "devDependencies": {
-        "eslint": "latest",
-        "eslint-config-next": "latest"
-    }
+  "name": "sayfbackend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@sanity/image-url": "^1.0.2",
+    "aos": "^2.3.4",
+    "clsx": "^2.1.1",
+    "dompurify": "^3.1.5",
+    "framer-motion": "^11.2.11",
+    "html-react-parser": "^5.1.10",
+    "lucide-react": "^0.378.0",
+    "moment": "^2.30.1",
+    "mongodb": "^6.7.0",
+    "mongoose": "^8.4.1",
+    "next": "14.2.3",
+    "next-sanity": "^9.0.15",
+    "pdfjs-dist": "^4.8.69",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-icons": "^5.2.1",
+    "react-loading-skeleton": "^3.4.0",
+    "react-quill": "^2.0.0",
+    "sharp": "^0.33.4",
+    "tailwind-merge": "^2.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^8",
+    "eslint-config-next": "14.2.3",
+    "postcss": "^8",
+    "tailwindcss": "^3.4.1"
+  }
 }
