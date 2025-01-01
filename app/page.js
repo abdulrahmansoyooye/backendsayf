@@ -42,7 +42,7 @@ export default function DashboardPage() {
   return (
     <div className="pl-30 flex-1 space-y-4 p-8 pt-6">
       <div className="flex items-center justify-between space-y-2">
-        <h2 className="text-3xl tracking-tight">Dashboard</h2>
+        <h2 className="text-3xl tracking-tight">Assalamualykum</h2>
       </div>
       <MetricsGrid data={datacount}/>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
