@@ -34,8 +34,8 @@ const Edit = () => {
         setTitle(res.title);
         setDescription(res.description);
         setTag(res.tag);
-        setImage(res.imageUrl);
-        setAudio(res.audio);
+        // setImage(res.imageUrl);
+        // setAudio(res.audio);
         setCategoryValue(res.category);
         setPublishdate(res.publishDate)
 

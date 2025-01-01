@@ -39,7 +39,8 @@ const Resources = () => {
 
   const DeleteThisResources = async () => {
     await DeleteResources(resourcesId);
-    router.push("/resources");
+    window.location.reload()
+    setDeleteModal(!deleteModal);
   };
 
 

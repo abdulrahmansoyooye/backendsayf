@@ -60,7 +60,7 @@ const Edit = () => {
         setTitle(res.title);
         setContent(res.content);
         setTag(res.tag);
-        setImage(res.imageUrl);
+        // setImage(res.imageUrl);
         setCategoryValue(res.category);
       } catch (error) {
         setError("Something went wrong. Try Againarticles");

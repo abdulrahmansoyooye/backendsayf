@@ -27,6 +27,7 @@ const Edit = () => {
         const res = await getEachResources(resourcesId);
         setTitle(res.title);
         setTag(res.tag);
+       
       } catch (error) {
         setMessage("Something went wrong. Try Again");
       }

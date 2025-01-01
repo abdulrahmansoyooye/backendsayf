@@ -4,7 +4,6 @@ import { useState } from "react";
 
 const FileUpload = ({ file, setFile, type}) => {
 
-  
   return (
     <div>
       <CldUploadWidget
@@ -12,7 +11,6 @@ const FileUpload = ({ file, setFile, type}) => {
         apiKey={process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY}
         apiSecret={process.env.NEXT_PUBLIC_CLOUDINARY_API_SECRET}
         onSuccess={(result, { widget }) => {
-            console.log(`Success! Here is the uploaded file info:`, result?.info.secure_url);
             setFile(result?.info.secure_url);  
           }}
         options={{
