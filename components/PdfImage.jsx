@@ -1,12 +1,13 @@
+"use client";
 import { useState } from "react";
-import { Document, Page,pdfjs} from "react-pdf";
+import { Document, Page} from "react-pdf";
 import "react-pdf/dist/esm/Page/TextLayer.css";
 import "react-pdf/dist/esm/Page/AnnotationLayer.css";
+import "@react-pdf-viewer/core/lib/styles/index.css";
 
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  'pdfjs-dist/build/pdf.worker.min.js',
-  import.meta.url,
-).toString()
+import { pdfjs } from "react-pdf";
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.mjs`;
 
 const PdfImage = ({ pdfUrl }) => {
   const [numPages, setNumPages] = useState(null);
@@ -19,7 +20,7 @@ const PdfImage = ({ pdfUrl }) => {
     <div>
       <Document file={pdfUrl} onLoadSuccess={onDocumentLoadSuccess}>
         {/* Render only the first page */}
-        <Page pageNumber={1} />
+        <Page pageNumber={1} width={350} height={30}/>
       </Document>
     </div>
   );

@@ -33,8 +33,8 @@ const Resources = () => {
   }, []);
 
   const handleDelete = (_id) => {
-    setresourcesId(_id);
     setDeleteModal(!deleteModal);
+    setresourcesId(_id);
   };
 
   const DeleteThisResources = async () => {
@@ -42,23 +42,7 @@ const Resources = () => {
     router.push("/resources");
   };
 
-  const renderPdfThumbnail = async (pdfUrl) => {
-    const loadingTask = pdfjsLib.getDocument(pdfUrl);
-    const pdf = await loadingTask.promise;
-    const page = await pdf.getPage(1);
-    const viewport = page.getViewport({ scale: 1 });
-    const canvas = document.createElement("canvas");
-    const context = canvas.getContext("2d");
-    canvas.height = viewport.height;
-    canvas.width = viewport.width;
 
-    const renderContext = {
-      canvasContext: context,
-      viewport: viewport,
-    };
-    await page.render(renderContext).promise;
-    return canvas.toDataURL();
-  };
 
   return (
     <div className="flex flex-col">
@@ -101,7 +85,9 @@ const Resources = () => {
                           #{tag}
                         </div>
                       </div>
-
+                      <a
+                       href={pdf}
+        download={pdf.split("/").pop()} >Download</a>
                       <div className="flex w-full flex-wrap gap-[1rem] hover:text-primary-color ">
                         {" "}
                         <div className="primary_btn">
