@@ -34,8 +34,8 @@ const Edit = () => {
         setTitle(res.title);
         setDescription(res.description);
         setTag(res.tag);
-        // setImage(res.imageUrl);
-        // setAudio(res.audio);
+        setImage(res.imageUrl);
+        setAudio(res.audio);
         setCategoryValue(res.category);
         setPublishdate(res.publishDate)
 
@@ -110,14 +110,14 @@ const Edit = () => {
               className="input"
             />
           </div>
-          <div className="flex gap-[1rem] justify-between flex-col  pb-[1rem]">
+          {image && <div className="flex gap-[1rem] justify-between flex-col  pb-[1rem]">
             <label className="font-[500]">Image </label>
             <img
               src={image}
               alt="alt-image"
               className="h-[50px] object-contain border"
             />
-          </div>
+          </div>}
           <div className="flex gap-[1rem] justify-between flex-col  pb-[1rem]">
             <label className="font-[500]">Edit Image </label>
             <FileUpload file={image} setFile={setImage} type={"image"}/>
@@ -133,7 +133,8 @@ const Edit = () => {
             />
           </div>
           <div>
-          <DatePicker publishDate={publishDate} setPublishdate={setPublishdate}/>
+            <div className="w-full">     <DatePicker publishDate={publishDate} setPublishdate={setPublishdate}/></div>
+
         </div>
           <div className="flex gap-[1rem] justify-between flex-col  pb-[1rem]">
             <label className="font-[500]">Edit Audio </label>

@@ -27,7 +27,7 @@ const Edit = () => {
         const res = await getEachResources(resourcesId);
         setTitle(res.title);
         setTag(res.tag);
-       
+       setPdf(res.pdf)
       } catch (error) {
         setMessage("Something went wrong. Try Again");
       }

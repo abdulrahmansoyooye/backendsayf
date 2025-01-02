@@ -24,7 +24,7 @@ export default function DatePicker({publishDate,setPublishdate}) {
 
 
   return (
-    <Popover>
+  <Popover className="w-full">
       <PopoverTrigger asChild>
         <Button
           variant={"outline"}

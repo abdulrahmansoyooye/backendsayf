@@ -41,7 +41,7 @@ const Courses = () => {
           ) : (
             courses.map(
               ({ _id, title, description, tag, link, audio, imageUrl }) => (
-                <div className=" border-alt-color border-2 rounded-md w-[45%] max-lg:w-full transition-all duration-300">
+                <div key={_id} className=" border-alt-color border-2 rounded-md w-[45%] max-lg:w-full transition-all duration-300">
                   <div className="">
                     <Link
                       href={`/courses/${_id}`}

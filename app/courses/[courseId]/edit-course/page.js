@@ -56,7 +56,7 @@ const Edit = () => {
         setDescription(res.description);
         setTag(res.tag);
         setLink(res.link);
-        // setImage(res.imageUrl);
+        setImage(res.imageUrl);
       } catch (error) {
         setMessage("Something went wrong. Try Again");
       }
