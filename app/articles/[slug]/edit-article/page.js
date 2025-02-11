@@ -1,21 +1,22 @@
 "use client";
 
-import FileUpload from "@/components/FileUpload";
+import { EditArticle, getEachArticle } from "@/utils/actions/articleActions";
+import { useParams, useRouter } from "next/navigation";
 import { GenerateSlug } from "@/constants";
-import { createArticle, getCategory } from "@/utils/actions/articleActions";
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
-
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
-
-import "react-quill/dist/quill.snow.css";
-import { Card } from "@/components/ui/card";
+import FileUpload from "@/components/FileUpload";
 import { Label } from "@/components/ui/label";
+import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import Image from "next/image";
 
+// Dynamic import for ReactQuill
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+import "react-quill/dist/quill.snow.css";
+// Quill modules and formats
 const modules = {
   toolbar: [
     [{ header: "1" }, { header: "2" }],
@@ -28,10 +29,13 @@ const modules = {
 
 const formats = [
   "header",
+  "font",
+  "size",
   "bold",
   "italic",
   "underline",
   "strike",
+  "blockquote",
   "list",
   "bullet",
   "link",
@@ -39,58 +43,59 @@ const formats = [
   "video",
 ];
 
-const CreateNewArticle = () => {
+const EditArticlePage = () => {
+  const { slug } = useParams();
+  const router = useRouter();
+  const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
   const [article, setArticle] = useState({
     title: "",
-    image: "",
-    slug: "",
-    tag: "",
     content: "",
+    image: "",
+    tag: "",
     category: "",
+    slug: "",
   });
 
-  const [message, setMessage] = useState("");
-  const [categories, setCategories] = useState([ "Productivity",
+  const categories = [
+    "Productivity",
     "Self Development",
     "Spirituality & Mental Health",
     "Relationship",
-    "Career"]);
-  const router = useRouter();
+    "Career",
+  ];
 
-  // Fetch categories dynamically
+  // Fetch article data
   useEffect(() => {
-    const fetchCategories = async () => {
+    const fetchArticle = async () => {
       try {
-        const res = await getCategory();
-        if (res) {
-          setCategories(res);
-        } else {
-          setMessage("Failed to load categories");
-        }
+        const res = await getEachArticle(slug);
+        setArticle({
+          title: res.title,
+          content: res.content,
+          tag: res.tag,
+          slug: res.slug,
+          image: res.imageUrl,
+          category: res.category,
+        });
       } catch (error) {
-        setMessage("Error fetching categories");
+        setMessage("Failed to load article");
+      } finally {
+        setIsLoading(false);
       }
     };
-    fetchCategories();
-  }, []);
-
-  // Handle input changes
-  const handleChange = (e) => {
-    setArticle((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  // Generate slug from title
-  const handleSlugGeneration = () => {
-    setArticle((prev) => ({ ...prev, slug: GenerateSlug(article.title) }));
-  };
+    fetchArticle();
+  }, [slug]);
 
   // Handle form submission
-  const handleSubmit = async (e) => {
+  const handleEditArticle = async (e) => {
     e.preventDefault();
     setMessage("");
 
     try {
-      const res = await createArticle(
+      const res = await EditArticle(
+        slug,
         article.title,
         article.content,
         article.category,
@@ -102,21 +107,31 @@ const CreateNewArticle = () => {
       if (res.status === 201) {
         router.push("/articles");
       } else {
-        setMessage(res.message || "Failed to create article");
+        setMessage(res.message || "Failed to edit article");
       }
     } catch (error) {
-      console.error("Error creating article:", error);
-      setMessage("An error occurred while creating the article.");
+      setMessage("Something went wrong. Try again.");
+      console.error("Error editing article:", error);
     }
   };
+
+  // Handle input changes
+  const handleChange = (e) => {
+    setArticle((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  // Generate slug from title
+  const handleSlug = () => {
+    setArticle((prev) => ({ ...prev, slug: GenerateSlug(article.title) }));
+  };
+
+  if (isLoading) return <p className="text-center">Loading...</p>;
 
   return (
     <div className="p-8 max-w-4xl mx-auto">
       <Card className="p-6">
-        <form onSubmit={handleSubmit}>
-          <h2 className="text-2xl text-center mb-4 font-bold">Create Article</h2>
-          {message && <p className="text-center text-red-500">{message}</p>}
-
+        <form onSubmit={handleEditArticle}>
+          {message && <p className="text-red-500 text-center mb-4">{message}</p>}
           <div className="space-y-6">
             {/* Category Selection */}
             <div className="space-y-2">
@@ -129,17 +144,11 @@ const CreateNewArticle = () => {
                   <SelectValue placeholder="Select a category" />
                 </SelectTrigger>
                 <SelectContent>
-                  {categories.length > 0 ? (
-                    categories.map((category, index) => (
-                      <SelectItem key={index} value={category}>
-                        {category}
-                      </SelectItem>
-                    ))
-                  ) : (
-                    <SelectItem value="" disabled>
-                      No Categories Available
+                  {categories.map((category) => (
+                    <SelectItem key={category} value={category}>
+                      {category}
                     </SelectItem>
-                  )}
+                  ))}
                 </SelectContent>
               </Select>
             </div>
@@ -179,7 +188,7 @@ const CreateNewArticle = () => {
                   placeholder="Enter article slug"
                   required
                 />
-                <Button type="button" onClick={handleSlugGeneration} variant="outline">
+                <Button type="button" onClick={handleSlug} variant="outline">
                   Generate Slug
                 </Button>
               </div>
@@ -188,9 +197,7 @@ const CreateNewArticle = () => {
             {/* Image Upload */}
             <div className="space-y-2">
               <Label>Image</Label>
-              {article.image && (
-                <img src={article.image} alt="Preview" className="h-40 object-contain  w-full rounded-md mt-2" />
-              )}
+              {article.image && <Image src={article.image} width={100} height={100} alt="article-img" className="h-40 object-contain  w-full rounded-md mt-2"/>}
               <FileUpload file={article.image} setFile={(file) => setArticle((prev) => ({ ...prev, image: file }))} type="image" />
             </div>
 
@@ -208,7 +215,7 @@ const CreateNewArticle = () => {
 
             {/* Submit Button */}
             <Button type="submit" className="w-full">
-              Create Article
+              Edit Article
             </Button>
           </div>
         </form>
@@ -217,4 +224,4 @@ const CreateNewArticle = () => {
   );
 };
 
-export default CreateNewArticle;
+export default EditArticlePage;

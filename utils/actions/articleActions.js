@@ -19,11 +19,11 @@ export const getsayfArticle = async (category) => {
     console.log(error);
   }
 };
-export const getEachArticle = async (id) => {
+export const getEachArticle = async (slug) => {
   
   await connectToDb();
   try {
-    const article = await sayfArticle.findById(id);
+    const article = await sayfArticle.findOne({slug});
 
     const response = JSON.parse(JSON.stringify(article));
     return response;
@@ -32,39 +32,57 @@ export const getEachArticle = async (id) => {
   }
 };
 
+
+
 export const EditArticle = async (
-  articleId,
+  slugValue,
   title,
   content,
-  imageUrl,
-  tag,
-  category
+ category,
+ imageUrl,
+ slug,
+ tag
+ 
 ) => {
   await connectToDb();
   try {
-    await sayfArticle.findByIdAndUpdate(articleId, {
-      title,
-      content,
-      imageUrl,
-      tag,
-      category,
-    });
+    const updatedArticle = await sayfArticle.findOneAndUpdate(
+      { slug:slugValue }, 
+      {
+        title,
+        content,
+        imageUrl,
+        tag,
+        slug, 
+        category,
+      },
+      { new: true } // Return the updated document and validate
+    );
 
-    return { message: "Article was Edited", status: 201 };
+    if (!updatedArticle) {
+      return { message: "Article not found", status: 404 }; // Handle not found case
+    }
+
+    return { message: "Article was Edited", status: 201 }; 
   } catch (error) {
-    console.log(error);
+    console.error("Error editing article:", error); // Use console.error for errors
+    return { message: "Error editing article", status: 500, error: error.message }; // Return error details
   }
 };
 
-export const DeleteArticle = async (id) => {
-
+export const DeleteArticle = async (slug) => {
   await connectToDb();
   try {
-    await sayfArticle.findByIdAndDelete(id);
+    const deletedArticle = await sayfArticle.findOneAndDelete({ slug });
 
-    return { message: "Article was deleted", status: 201 };
+    if (!deletedArticle) {
+      return { message: "Article not found", status: 404 };
+    }
+
+    return { message: "Article was deleted", status: 200 }; 
   } catch (error) {
-    console.log(error);
+    console.error("Error deleting article:", error);
+    return { message: "Error deleting article", status: 500, error: error.message };
   }
 };
 
@@ -73,30 +91,36 @@ export const createArticle = async (
   content,
   category,
   imageUrl,
+  slug,
   tag
 ) => {
   await connectToDb();
 
   if (!category) {
-    return { message: "Add a category to continue" };
+    return { message: "Add a category to continue", status: 400 }; // 400 Bad Request
   }
   if (!imageUrl) {
-    return { message: "Add an Image to continue" };
+    return { message: "Add an Image to continue", status: 400 };
   }
+  if (!slug) {
+    return { message: "Add a slug to continue", status: 400 };
+  }
+
   try {
-    await sayfArticle.create({
+    const newArticle = await sayfArticle.create({
       title,
       content,
-      category: category,
+      category,
       imageUrl,
+      slug,
       tag,
     });
-    return { message: "Article has been Created", status: 201 };
+    return { message: "Article has been Created", status: 201 }; // 201 Created
   } catch (error) {
-    console.log(error);
+    console.error("Error creating article:", error);
+    return { message: "Error creating article", status: 500, error: error.message };
   }
 };
-
 export const getCategory = async () => {
   await connectToDb();
   try {

@@ -1,133 +1,109 @@
 "use client";
-import ArticlesCard from "@/components/ArticlesCard";
-import Welcome from "@/components/Welcome";
-import {
-  getArticles,
-  getCategory,
-  getsayfArticle,
-} from "@/utils/actions/articleActions";
+
+import { useEffect, useReducer } from "react";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import {Button} from "@/components/ui/button"
+import Image from "next/image";
+import Welcome from "@/components/Welcome";
+import ArticlesCard from "@/components/ArticlesCard";
+import { getArticles, getCategory, getsayfArticle } from "@/utils/actions/articleActions";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { Badge } from "@/components/ui/badge";
+
+// Define initial state
+const initialState = {
+  articles: [],
+  categories: [],
+  currentCategory: "All",
+  error: "",
+  loading: true,
+};
+
+// Reducer function for state management
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "SET_ARTICLES":
+      return { ...state, articles: action.payload, loading: false, error: "" };
+    case "SET_CATEGORIES":
+      return { ...state, categories: action.payload };
+    case "SET_CATEGORY":
+      return { ...state, currentCategory: action.payload, loading: true };
+    case "SET_ERROR":
+      return { ...state, error: action.payload, loading: false };
+    default:
+      return state;
+  }
+};
+
 const Articles = () => {
-  const [articles, setArticles] = useState([]);
-  const [currentCategory, setCurrentCategory] = useState("All");
-  const [categories, setCategories] = useState([]);
-  const [error, setError] = useState("");
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    async function fetchArticles() {
+    async function fetchData() {
       try {
-        const res = await getsayfArticle("All");
-        setArticles(res);
+        const [articlesData, categoriesData] = await Promise.all([
+          getsayfArticle("All"),
+          getCategory(),
+        ]);
+
+        dispatch({ type: "SET_ARTICLES", payload: articlesData });
+        dispatch({ type: "SET_CATEGORIES", payload: categoriesData });
       } catch (error) {
-        setError("Something went wrong. Try Againarticles");
+        dispatch({ type: "SET_ERROR", payload: "Something went wrong. Try again." });
       }
     }
-    async function fetchCatrogries() {
-      try {
-        const res = await getCategory();
-        setCategories(res);
-      } catch (error) {
-        setError("Something went wrong. Try Againarticles");
-      }
-    }
-    fetchCatrogries();
-    fetchArticles();
+    fetchData();
   }, []);
 
-  const handleCategoryClick = async (name, _id) => {
-    setCurrentCategory(name);
-
-    setArticles([]);
+  const handleCategoryClick = async (name) => {
+    dispatch({ type: "SET_CATEGORY", payload: name });
     try {
-      const res = await getsayfArticle(name);
-      console.log(articles);
-      setArticles(res);
-    } catch (error) {
-      setError("Something went wrong. Try Againarticles");
+      const filteredArticles = await getsayfArticle(name);
+      dispatch({ type: "SET_ARTICLES", payload: filteredArticles });
+    } catch {
+      dispatch({ type: "SET_ERROR", payload: "Something went wrong. Try again." });
     }
   };
-  return (
-    <div className="flex flex-col ">
-      <Welcome title="Articles" text="Some articles for you to read" />
-      {error && <p>{error}</p>}
-      <Button className="w-[50%] m-auto ">
-        <Link href="/articles/create-article">
-         Create Article
-        </Link>
-      </Button>
-      <div className="flex flex-col gap-[2rem] sm:w-[80%] m-[2rem_auto]   p-[2rem] ">
-        <div className="flex gap-[1rem] justify-center flex-wrap ">
-          <div
-            className={`cursor-pointer  hover:border-primary-color p-[0.5rem] transition-all duration-500   bg-alt-color rounded-md  text-center w-[150px] ${
-              currentCategory == "All" && "border border-1 border-primary-color"
-            }`}
-            onClick={() => handleCategoryClick("All")}
-          >
-            <h1 className="font-[500]">All</h1>
-          </div>
-          {categories &&
-            categories.map((category) => (
-              <div
-                className={`cursor-pointer border hover:border-primary-color p-[0.5rem] transition-all duration-500 bg-alt-color border-alt-color border-1 rounded-md  text-center  w-[150px] ${
-                  category == currentCategory && "border-primary-color"
-                }`}
-                onClick={() => handleCategoryClick(category)}
-                key={category}
-              >
-                <div className="font-[500]">{category}</div>
-              </div>
-            ))}
-        </div>
-        <div className="flex gap-[2rem] justify-center flex-wrap  w-full">
-          {articles && articles.length === 0 ? (
-            <Link
-              href={`/articles/create-article`}
-              className="font-[400] cursor-pointer"
-            >
-              {`No Result`}
-            </Link>
-          ) : (
-            articles.map(({ _id, title, content, tag, imageUrl }) => (
-              <div
-                className=" border-alt-color border-2 rounded-md w-[45%] max-lg:w-full transition-all duration-300 "
-                key={_id}
-              >
-                <div className="">
-                  <Link
-                    href={`/articles/${_id}`}
-                    className="font-[400] cursor-pointer"
-                  >
-                    <div className="w-full">
-                      <img
-                        src={imageUrl}
-                        className="w-full h-[250px] object-cover rounded-md "
-                        alt="article-img"
-                      />
-                    </div>
-                    <div className="flex flex-col gap-[2rem] p-[1rem]">
-                      <div className="flex justify-between flex-wrap gap-[0.5rem]">
-                        <div className="text-[1.5rem] font-[500]">{title}</div>
-                        <div className="bg-slate-100 p-[0.5rem] text-slate-700 rounded-md text-[0.75rem]">
-                          #{tag}
-                        </div>
-                      </div>
 
-                      <div
-                        dangerouslySetInnerHTML={{
-                          __html: content.slice(0, 30),
-                        }}
-                      />
-                      <div className="flex w-full hover:text-primary-color ">
-                        {" "}
-                        <p className="primary_btn">Read Article</p>
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-              </div>
-            ))
+  return (
+    <div className="flex flex-col">
+      <Welcome title="Articles" text="Some articles for you to read" />
+
+      {/* Create Article Button */}
+      <Button className="w-1/2 mx-auto">
+        <Link href="/articles/create-article">Create Article</Link>
+      </Button>
+
+      {/* Error Message */}
+      {state.error && <p className="text-red-500 text-center">{state.error}</p>}
+
+      {/* Categories Section */}
+      <div className="flex flex-col gap-8 sm:w-4/5 mx-auto p-8">
+        <div className="flex gap-4 justify-center flex-wrap">
+          <CategoryButton
+            name="All"
+            isActive={state.currentCategory === "All"}
+            onClick={handleCategoryClick}
+          />
+          {state.categories.map((category) => (
+            <CategoryButton
+              key={category}
+              name={category}
+              isActive={category === state.currentCategory}
+              onClick={handleCategoryClick}
+            />
+          ))}
+        </div>
+
+        {/* Articles Section */}
+        <div className="flex flex-wrap gap-6 justify-center w-full">
+          {state.loading ? (
+            <SkeletonLoader />
+          ) : state.articles.length === 0 ? (
+            <NoArticles />
+          ) : (
+            state.articles.map((article) => <ArticleCard key={article._id} article={article} />)
           )}
         </div>
       </div>
@@ -136,21 +112,61 @@ const Articles = () => {
 };
 
 export default Articles;
+const CategoryButton = ({ name, isActive, onClick }) => (
+  <button
+    className={`px-4 py-2 rounded-md border transition-all duration-300 ${
+      isActive ? "border-primary bg-primary text-white" : "border-gray-300 bg-gray-100"
+    }`}
+    onClick={() => onClick(name)}
+  >
+    {name}
+  </button>
+);
+const SkeletonLoader = () => (
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+    {[...Array(6)].map((_, index) => (
+      <Card key={index} className="p-4">
+        <Skeleton className="h-40 w-full rounded-lg mb-4" />
+        <Skeleton className="h-6 w-3/4 mb-2" />
+        <Skeleton className="h-4 w-full mb-2" />
+        <Skeleton className="h-4 w-2/3" />
+      </Card>
+    ))}
+  </div>
+);
+const NoArticles = () => (
+  <div className="text-center text-gray-500">
+    <p>No articles found.</p>
+    <Link href="/articles/create-article" className="text-primary underline">
+      Create an article
+    </Link>
+  </div>
+);
+const ArticleCard = ({ article }) => {
+  const { _id, title, content, tag, imageUrl,slug } = article;
 
-const OtherCategories = ({ articles }) => {
-  return articles.map(({ _id, title, content }) => (
-    <ArticlesCard _id={_id} title={title} content={content} key={_id} />
-  ));
-};
-
-const AllCategories = ({ articles, categoryId }) => {
-  return articles.map(({ _id, title, content }) => (
-    <ArticlesCard
-      _id={_id}
-      title={title}
-      content={content}
-      categoryId={categoryId}
-      key={_id}
-    />
-  ));
+  return (
+    <Card className="w-full md:w-[45%] lg:w-[30%] overflow-hidden border">
+      <Link href={`/articles/${slug}`} className="block">
+        <Image
+          src={imageUrl}
+          alt={title}
+          width={400}
+          height={250}
+          className="w-full h-56 object-cover rounded-t-md"
+          priority
+        />
+      </Link>
+      <div className="p-4 flex flex-col gap-4">
+        <div className="flex justify-between items-center">
+          <h3 className="text-lg font-semibold">{title}</h3>
+          <Badge>{tag}</Badge>
+        </div>
+        {/* <p className="text-sm text-gray-600">{content.slice(0, 60)}...</p> */}
+        <Link href={`/articles/${slug}`} className="text-primary hover:underline">
+          Read Article
+        </Link>
+      </div>
+    </Card>
+  );
 };

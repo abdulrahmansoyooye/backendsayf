@@ -43,6 +43,9 @@ h1,
 .black_btn {
   @apply bg-[#000] hover:bg-secondary-color text-white transition-all duration-500 border  p-[1rem] rounded-md w-full text-center;
 }
+.generate_btn{
+  @apply border p-[0.5rem] rounded-md
+}
 .input {
   @apply w-full rounded-md border border-gray-200 bg-white py-2.5 pl-5 pr-12 text-sm font-medium focus:border-primary-color focus:outline-none focus:ring-0;
 }

@@ -50,3 +50,16 @@ export const formatMonth = (date) => {
 export const formatDay = (date) => {
   return moment(date).format('DD');
 };
+
+export const GenerateSlug = (text)=>{
+  return text
+    .toString() // Convert to string
+    .normalize('NFKD') // Normalize Unicode characters
+    .toLowerCase() // Convert to lowercase
+    .trim() // Remove leading/trailing whitespace
+    .replace(/\s+/g, '-') // Replace spaces with -
+    .replace(/[^\w\-]+/g, '') // Remove all non-word chars except -
+    .replace(/\-\-+/g, '-') // Replace multiple - with single -
+    .replace(/^-+/, '') // Trim - from start of text
+    .replace(/-+$/, ''); // Trim - from end of text
+}

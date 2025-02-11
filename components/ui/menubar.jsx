@@ -6,15 +6,35 @@ import { Check, ChevronRight, Circle } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
-const MenubarMenu = MenubarPrimitive.Menu
+function MenubarMenu({
+  ...props
+}) {
+  return <MenubarPrimitive.Menu {...props} />;
+}
 
-const MenubarGroup = MenubarPrimitive.Group
+function MenubarGroup({
+  ...props
+}) {
+  return <MenubarPrimitive.Group {...props} />;
+}
 
-const MenubarPortal = MenubarPrimitive.Portal
+function MenubarPortal({
+  ...props
+}) {
+  return <MenubarPrimitive.Portal {...props} />;
+}
 
-const MenubarSub = MenubarPrimitive.Sub
+function MenubarRadioGroup({
+  ...props
+}) {
+  return <MenubarPrimitive.RadioGroup {...props} />;
+}
 
-const MenubarRadioGroup = MenubarPrimitive.RadioGroup
+function MenubarSub({
+  ...props
+}) {
+  return <MenubarPrimitive.Sub data-slot="menubar-sub" {...props} />;
+}
 
 const Menubar = React.forwardRef(({ className, ...props }, ref) => (
   <MenubarPrimitive.Root
